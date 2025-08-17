@@ -12,3 +12,8 @@ export type WeatherData = {
     speed: number;
   };
 };
+
+export type Location = {
+  lat: number | null;
+  long: number | null;
+};
