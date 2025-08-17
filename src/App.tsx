@@ -1,18 +1,14 @@
 import { useState, useEffect } from 'react';
 import type { WeatherData } from './types';
-import useLocation from '@clurts/use-location';
 
 function App() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [isLocating, position] = useLocation();
 
   useEffect(() => {
     // Fetch weather data from an API
     const fetchWeather = async () => {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${
-          position && position.lat
-        }&lon=${position && position.long}&units=metric&lang=da&appid=${
+        `https://api.openweathermap.org/data/2.5/weather?lat=55,81650&lon=11,94248&units=metric&lang=da&appid=${
           import.meta.env.VITE_WEATHER_API_KEY
         }`
       );
@@ -21,13 +17,13 @@ function App() {
     };
 
     fetchWeather();
-  }, [position]);
+  }, []);
 
   return (
     <div className="container mx-auto p-4 text-center">
       <h1 className="text-2xl font-bold mb-2">My weather app</h1>
       <p className="mb-4">Get the latest weather updates for your location.</p>
-      {weather && !isLocating && (
+      {weather && (
         <div className="text-center">
           <img
             className="mx-auto mb-2"
